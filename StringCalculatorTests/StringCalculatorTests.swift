@@ -65,4 +65,11 @@ class StringCalculatorTests: XCTestCase {
     func testShouldReturnValidSumForMultipleDelimiter() {
         XCTAssertEqual(6, stringCalculator.add(numberString:"1\n2,3"))
     }
+    
+    func testShouldSupportDifferentDelimiters() {
+        XCTAssertEqual(3, stringCalculator.add(numberString:"//;\n1;2"))
+    }
+    func testShouldReturnZeroInCaseOfUnknownDelimeter() {
+        XCTAssertEqual(0, stringCalculator.add(numberString:"//;\n1;2:3,6"))
+    }
 }
