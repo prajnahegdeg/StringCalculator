@@ -53,4 +53,8 @@ class StringCalculatorTests: XCTestCase {
     func testShouldReturnValidSum() {
         XCTAssertEqual(3, stringCalculator.add(numberString:"1,2"))
     }
+    
+    func testShouldReturnValidSumForMoreThanTwoNumbers() {
+        XCTAssertEqual(10, stringCalculator.add(numberString:"1,2,3,4"))
+    }
 }

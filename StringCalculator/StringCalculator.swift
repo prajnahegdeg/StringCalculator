@@ -24,7 +24,12 @@ class StringCalculator {
             }
         }
         
+        let numberArray = numberString.components(separatedBy: ",")
+        var sum = 0
+        for element in numberArray {
+            sum += Int(element) ?? 0
+        }
         
-        return 0
+        return sum
     }
 }
