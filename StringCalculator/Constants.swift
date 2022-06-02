@@ -8,12 +8,19 @@
 import Foundation
 
 enum StringCalculationError: Error {
-    case NegativeNumbersNotAllowed(Int)
+    case NegativeNumbersNotAllowed([Int])
     
     var description: String {
              switch self {
-                 case .NegativeNumbersNotAllowed(let value):
-                     return "negatives not allowed - \(value)"
+                 case .NegativeNumbersNotAllowed(let values):
+                 return "negatives not allowed - \(values)"
           }
+    }
+    
+    var erroneousCount: Int {
+        switch self {
+        case .NegativeNumbersNotAllowed(let values):
+            return values.count
+        }
     }
 }

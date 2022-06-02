@@ -124,7 +124,20 @@ class StringCalculatorTests: XCTestCase {
             let _ = try  stringCalculator.add(numberString:"1,-2")
             XCTFail("StringCalculator.add() should throw StringCalculationError")
         } catch let error as StringCalculationError {
-            print("User creation failed with error: \(error.description)")
+            print("\(error.description)")
+        } catch {
+            XCTFail("StringCalculator.add() should throw StringCalculationError")
+        }
+    }
+    
+    func testShouldThrowExceptionWithAllNegativeNumbers() {
+        let numberOfNegatives = 2
+        do {
+            let _ = try  stringCalculator.add(numberString:"1,-2,-3\n9,8")
+            XCTFail("StringCalculator.add() should throw StringCalculationError")
+        } catch let error as StringCalculationError {
+            print("\(error.description)")
+            XCTAssertEqual(numberOfNegatives, error.erroneousCount)
         } catch {
             XCTFail("StringCalculator.add() should throw StringCalculationError")
         }

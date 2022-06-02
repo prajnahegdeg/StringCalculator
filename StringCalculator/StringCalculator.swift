@@ -28,10 +28,12 @@ class StringCalculator {
         let characterSet = result.0 + "\n"
         let numberArray = result.1.components(separatedBy: CharacterSet(charactersIn: characterSet))
         var sum = 0
+        var negativeArray: [Int] = []
         for element in numberArray {
             if let value = Int(element) {
                 if(value < 0) {
-                    throw StringCalculationError.NegativeNumbersNotAllowed(value)
+                    negativeArray.append(value)
+                    continue
                 }
                 sum +=  value
             } else {
@@ -39,8 +41,12 @@ class StringCalculator {
                 return 0
             }
         }
+        if(negativeArray.isEmpty) {
+            return sum
+        } else {
+            throw StringCalculationError.NegativeNumbersNotAllowed(negativeArray)
+        }
         
-        return sum
     }
     
     private func getDelimiter(inputString: String) -> (String,String) {
