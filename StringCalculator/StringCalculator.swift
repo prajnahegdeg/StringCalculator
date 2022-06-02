@@ -31,7 +31,7 @@ class StringCalculator {
         for element in numberArray {
             if let value = Int(element) {
                 if(value < 0) {
-                    throw StringCalculationError.NegativeNumbersNotAllowed("negatives not allowed - \(value)")
+                    throw StringCalculationError.NegativeNumbersNotAllowed(value)
                 }
                 sum +=  value
             } else {

@@ -8,12 +8,12 @@
 import Foundation
 
 enum StringCalculationError: Error {
-    case NegativeNumbersNotAllowed(String)
+    case NegativeNumbersNotAllowed(Int)
     
     var description: String {
              switch self {
-                 case .NegativeNumbersNotAllowed(let message):
-                     return message
+                 case .NegativeNumbersNotAllowed(let value):
+                     return "negatives not allowed - \(value)"
           }
     }
 }
