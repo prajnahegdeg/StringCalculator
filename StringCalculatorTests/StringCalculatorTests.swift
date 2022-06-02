@@ -38,38 +38,95 @@ class StringCalculatorTests: XCTestCase {
     }
     
     func testEmptyStringShouldReturnZero() {
-        XCTAssertEqual(0, stringCalculator.add(numberString:""))
+        do {
+            let sum = try stringCalculator.add(numberString:"")
+            XCTAssertEqual(0, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
       }
     
     func testSingleNumberStringShouldReturnSameNumber() {
         let number = 2
-        XCTAssertEqual(number, stringCalculator.add(numberString:String(number)))
+        do {
+            let sum = try stringCalculator.add(numberString:String(number))
+            XCTAssertEqual(number, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
     }
-    
+
     func testInvalidSingleNumberStringShouldReturnZero() {
-        XCTAssertEqual(0, stringCalculator.add(numberString:"."))
+        do {
+            let sum = try stringCalculator.add(numberString:".")
+            XCTAssertEqual(0, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
     }
-    
+
     func testShouldReturnValidSum() {
-        XCTAssertEqual(3, stringCalculator.add(numberString:"1,2"))
+        do {
+            let sum = try  stringCalculator.add(numberString:"1,2")
+            XCTAssertEqual(3, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
     }
-    
+
     func testShouldReturnValidSumForMoreThanTwoNumbers() {
-        XCTAssertEqual(10, stringCalculator.add(numberString:"1,2,3,4"))
+        do {
+            let sum = try  stringCalculator.add(numberString:"1,2,3,4")
+            XCTAssertEqual(10, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
     }
-    
+
     func testShouldReturnValidSumForNewLineDelimiter() {
-        XCTAssertEqual(3, stringCalculator.add(numberString:"1\n2"))
+        do {
+            let sum = try  stringCalculator.add(numberString:"1\n2")
+            XCTAssertEqual(3, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
     }
-    
+
     func testShouldReturnValidSumForMultipleDelimiter() {
-        XCTAssertEqual(6, stringCalculator.add(numberString:"1\n2,3"))
+        do {
+            let sum = try  stringCalculator.add(numberString:"1\n2,3")
+            XCTAssertEqual(6, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
+    }
+
+    func testShouldSupportDifferentDelimiters() {
+        do {
+            let sum = try  stringCalculator.add(numberString:"//;\n1;2")
+            XCTAssertEqual(3, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
     }
     
-    func testShouldSupportDifferentDelimiters() {
-        XCTAssertEqual(3, stringCalculator.add(numberString:"//;\n1;2"))
+    func testShouldReturnZeroInCaseOfUnknownnDelimeter() {
+        do {
+            let sum = try  stringCalculator.add(numberString:"//;\n1;2:3,6")
+            XCTAssertEqual(0, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
     }
-    func testShouldReturnZeroInCaseOfUnknownDelimeter() {
-        XCTAssertEqual(0, stringCalculator.add(numberString:"//;\n1;2:3,6"))
+    
+    func testShouldThrowExceptionWhenFoundNegativeNumber() {
+        do {
+            let _ = try  stringCalculator.add(numberString:"1,-2")
+            XCTFail("StringCalculator.add() should throw StringCalculationError")
+        } catch let error as StringCalculationError {
+            print("User creation failed with error: \(error.description)")
+        } catch {
+            XCTFail("StringCalculator.add() should throw StringCalculationError")
+        }
     }
 }

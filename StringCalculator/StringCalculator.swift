@@ -9,7 +9,7 @@ import Foundation
 
 class StringCalculator {
     
-    func add(numberString: String) -> Int {
+    func add(numberString: String) throws -> Int {
         if(numberString.isEmpty) {
             return 0
         }
@@ -30,6 +30,9 @@ class StringCalculator {
         var sum = 0
         for element in numberArray {
             if let value = Int(element) {
+                if(value < 0) {
+                    throw StringCalculationError.NegativeNumbersNotAllowed("negatives not allowed - \(value)")
+                }
                 sum +=  value
             } else {
                 print("invalid input!")

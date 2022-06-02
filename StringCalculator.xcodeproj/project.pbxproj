@@ -17,6 +17,7 @@
 		C312A7702848F2130024DD27 /* StringCalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312A76F2848F2130024DD27 /* StringCalculatorUITests.swift */; };
 		C312A7722848F2130024DD27 /* StringCalculatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312A7712848F2130024DD27 /* StringCalculatorUITestsLaunchTests.swift */; };
 		C312A77F2848F6B90024DD27 /* StringCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312A77E2848F6B90024DD27 /* StringCalculator.swift */; };
+		C312A78128491FB00024DD27 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312A78028491FB00024DD27 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		C312A76F2848F2130024DD27 /* StringCalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringCalculatorUITests.swift; sourceTree = "<group>"; };
 		C312A7712848F2130024DD27 /* StringCalculatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringCalculatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C312A77E2848F6B90024DD27 /* StringCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringCalculator.swift; sourceTree = "<group>"; };
+		C312A78028491FB00024DD27 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				C312A7572848F2130024DD27 /* Assets.xcassets */,
 				C312A7592848F2130024DD27 /* LaunchScreen.storyboard */,
 				C312A75C2848F2130024DD27 /* Info.plist */,
+				C312A78028491FB00024DD27 /* Constants.swift */,
 			);
 			path = StringCalculator;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C312A78128491FB00024DD27 /* Constants.swift in Sources */,
 				C312A7532848F2110024DD27 /* ViewController.swift in Sources */,
 				C312A74F2848F2110024DD27 /* AppDelegate.swift in Sources */,
 				C312A77F2848F6B90024DD27 /* StringCalculator.swift in Sources */,
