@@ -24,7 +24,7 @@ class StringCalculator {
             }
         }
         
-        let numberArray = numberString.components(separatedBy: ",")
+        let numberArray = numberString.components(separatedBy: CharacterSet(charactersIn: ",\n"))
         var sum = 0
         for element in numberArray {
             sum += Int(element) ?? 0
