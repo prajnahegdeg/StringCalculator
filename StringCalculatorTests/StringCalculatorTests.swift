@@ -29,5 +29,15 @@ class StringCalculatorTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
+    
+    func testEmptyStringShouldReturnZero() {
+        let stringCalculator = StringCalculator()
+        XCTAssertEqual(0, stringCalculator.add(numberString:""))
+      }
+    
+    func testSingleNumberStringShouldReturnSameNumber() {
+        let stringCalculator = StringCalculator()
+        let number = 2
+        XCTAssertEqual(number, stringCalculator.add(numberString:String(number)))
+    }
 }
