@@ -18,7 +18,13 @@ class StringCalculator {
             if let value = intValue {
                 return value
             }
+            else {
+                print("invalid input!")
+                return 0
+            }
         }
+        
+        
         return 0
     }
 }

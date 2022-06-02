@@ -10,6 +10,13 @@ import XCTest
 
 class StringCalculatorTests: XCTestCase {
 
+    var stringCalculator: StringCalculator!
+    
+    override func setUp() {
+        super.setUp()
+        stringCalculator = StringCalculator()
+    }
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -31,13 +38,19 @@ class StringCalculatorTests: XCTestCase {
     }
     
     func testEmptyStringShouldReturnZero() {
-        let stringCalculator = StringCalculator()
         XCTAssertEqual(0, stringCalculator.add(numberString:""))
       }
     
     func testSingleNumberStringShouldReturnSameNumber() {
-        let stringCalculator = StringCalculator()
         let number = 2
         XCTAssertEqual(number, stringCalculator.add(numberString:String(number)))
+    }
+    
+    func testInvalidSingleNumberStringShouldReturnZero() {
+        XCTAssertEqual(0, stringCalculator.add(numberString:"."))
+    }
+    
+    func testShouldReturnValidSum() {
+        XCTAssertEqual(3, stringCalculator.add(numberString:"1,2"))
     }
 }
