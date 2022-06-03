@@ -11,6 +11,7 @@ class StringCalculator {
     
     var calledCount = 0
     var newLineDelimiter = "\n"
+    
     func add(numberString: String) throws -> Int {
         calledCount += 1
         if(numberString.isEmpty) {
@@ -64,21 +65,26 @@ class StringCalculator {
     
     private func getDelimiter(inputString: String) -> (String,String) {
         if inputString.hasPrefix("//[") {
-            if let startIndex = inputString.firstIndex(of: "["), let endIndex = inputString.firstIndex(of: "]") {
-                let delimiter = String(inputString[startIndex...endIndex].dropFirst().dropLast())
-                if let index = inputString.firstIndex(of: "\n") {
-                    let startIndex = inputString.index(index, offsetBy: 1)
-                    let modifiedString = String(inputString[startIndex...])
-                    return (delimiter,modifiedString)
+            if inputString.numberOfOccurrencesOf(string: "[") == 1 && inputString.numberOfOccurrencesOf(string: "]") == 1 {
+                if let startIndex = inputString.firstIndex(of: "["), let endIndex = inputString.firstIndex(of: "]") {
+                    let delimiter = String(inputString[startIndex...endIndex].dropFirst().dropLast())
+                    if let modifiedString = getNumberStringFromInputString(inputString: inputString) {
+                        return (delimiter,modifiedString)
+                    }
+                }
+            } else {
+                if let delimeters = inputString.getStringsBetweenString(startString: "[", endString: "]"), let modifiedString = getNumberStringFromInputString(inputString: inputString) {
+                    return (delimeters.joined(separator: ""),modifiedString)
                 }
             }
+            
         } else if inputString.hasPrefix("//") {
             if let index = inputString.firstIndex(of: "\n") {
                 let prefix = inputString.prefix(upTo: index)
                 let delimiter = String(prefix[prefix.index(prefix.startIndex, offsetBy: 2)])
-                let startIndex = inputString.index(index, offsetBy: 1)
-                let modifiedString = String(inputString[startIndex...])
-                return (delimiter+newLineDelimiter,modifiedString)
+                if let modifiedString = getNumberStringFromInputString(inputString: inputString) {
+                    return (delimiter+newLineDelimiter,modifiedString)
+                }
             }
         }
         return (","+newLineDelimiter,inputString)
@@ -93,11 +99,13 @@ class StringCalculator {
         }
         return numberArray
     }
-}
-
-
-extension String {
-    func numberOfOccurrencesOf(string: String) -> Int {
-        return self.components(separatedBy:string).count - 1
+    
+    private func getNumberStringFromInputString(inputString: String) -> String? {
+        if let index = inputString.firstIndex(of: "\n") {
+            let startIndex = inputString.index(index, offsetBy: 1)
+            let modifiedString = String(inputString[startIndex...])
+            return modifiedString
+        }
+        return nil
     }
 }
