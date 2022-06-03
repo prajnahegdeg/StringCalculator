@@ -17,6 +17,11 @@ class StringCalculatorTests: XCTestCase {
         stringCalculator = StringCalculator()
     }
     
+    override func tearDown() {
+        super.tearDown()
+        stringCalculator = nil
+    }
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -190,6 +195,24 @@ class StringCalculatorTests: XCTestCase {
         do {
             let sum = try  stringCalculator.add(numberString:"//[*][%][,]\n1*2%3,4")
             XCTAssertEqual(10, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
+    }
+
+    func testShouldReturnValidSumForGivenMultipleDelimitersWithDifferentLength() {
+        do {
+            let sum = try  stringCalculator.add(numberString:"//[**][%%]\n1**2%%3")
+            XCTAssertEqual(6, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
+    }
+
+    func testShouldReturnValidSumForGivenMultipleDelimitersWithDifferentLengthWithSpace() {
+        do {
+            let sum = try  stringCalculator.add(numberString:"//[**][%%]\n1**  2  %%  3")
+            XCTAssertEqual(6, sum)
         } catch {
             XCTFail("StringCalculator.add() should not throw an exception")
         }

@@ -47,6 +47,13 @@ extension String {
 
     }
     
+    public func components(separatedBy separators: [String]) -> [String] {
+          var components: [String] = [self]
+          for separator in separators {
+              components = components.flatMap { $0.components(separatedBy: separator) }
+          }
+          return components.map { $0.trimmingCharacters(in: .whitespaces)}
+      }
     
 }
 

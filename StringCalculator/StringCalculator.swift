@@ -39,7 +39,7 @@ class StringCalculator {
     private func addString(numberString: String) throws -> Int {
         
         let result = getDelimiter(inputString: numberString)
-        let numberArray = getNumberArrayFromString(originalString: numberString,numberString: result.1, delimiter: result.0)
+        let numberArray = getNumberArrayFromString(originalString: numberString,numberString: result.1, delimiters: result.0)
         var sum = 0
         var negativeArray: [Int] = []
         for element in numberArray {
@@ -63,18 +63,18 @@ class StringCalculator {
         }
     }
     
-    private func getDelimiter(inputString: String) -> (String,String) {
+    private func getDelimiter(inputString: String) -> ([String],String) {
         if inputString.hasPrefix("//[") {
             if inputString.numberOfOccurrencesOf(string: "[") == 1 && inputString.numberOfOccurrencesOf(string: "]") == 1 {
                 if let startIndex = inputString.firstIndex(of: "["), let endIndex = inputString.firstIndex(of: "]") {
                     let delimiter = String(inputString[startIndex...endIndex].dropFirst().dropLast())
                     if let modifiedString = getNumberStringFromInputString(inputString: inputString) {
-                        return (delimiter,modifiedString)
+                        return ([delimiter],modifiedString)
                     }
                 }
             } else {
-                if let delimeters = inputString.getStringsBetweenString(startString: "[", endString: "]"), let modifiedString = getNumberStringFromInputString(inputString: inputString) {
-                    return (delimeters.joined(separator: ""),modifiedString)
+                if let delimiters = inputString.getStringsBetweenString(startString: "[", endString: "]"), let modifiedString = getNumberStringFromInputString(inputString: inputString) {
+                    return (delimiters,modifiedString)
                 }
             }
             
@@ -83,19 +83,23 @@ class StringCalculator {
                 let prefix = inputString.prefix(upTo: index)
                 let delimiter = String(prefix[prefix.index(prefix.startIndex, offsetBy: 2)])
                 if let modifiedString = getNumberStringFromInputString(inputString: inputString) {
-                    return (delimiter+newLineDelimiter,modifiedString)
+                    return ([delimiter+newLineDelimiter],modifiedString)
                 }
             }
         }
-        return (","+newLineDelimiter,inputString)
+        return ([","+newLineDelimiter],inputString)
     }
     
-    private func getNumberArrayFromString(originalString:String, numberString:String, delimiter: String) -> [String] {
+    private func getNumberArrayFromString(originalString:String, numberString:String, delimiters: [String]) -> [String] {
         var numberArray: [String] = []
         if originalString.hasPrefix("//[") && originalString.numberOfOccurrencesOf(string: "[") == 1 && originalString.numberOfOccurrencesOf(string: "]") == 1 {
-            numberArray = numberString.components(separatedBy: delimiter)
-        } else {
-            numberArray = numberString.components(separatedBy: CharacterSet(charactersIn: delimiter))
+            numberArray = numberString.components(separatedBy: delimiters.first!)
+        }
+        else  if originalString.hasPrefix("//[") && originalString.numberOfOccurrencesOf(string: "[") > 1 && originalString.numberOfOccurrencesOf(string: "]") > 1 {
+                numberArray = numberString.components(separatedBy: delimiters)
+        }
+        else {
+            numberArray = numberString.components(separatedBy: CharacterSet(charactersIn: delimiters.first!))
         }
         return numberArray
     }
