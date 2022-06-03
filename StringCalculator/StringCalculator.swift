@@ -9,7 +9,10 @@ import Foundation
 
 class StringCalculator {
     
+    var calledCount = 0
+    
     func add(numberString: String) throws -> Int {
+        calledCount += 1
         if(numberString.isEmpty) {
             return 0
         }
@@ -24,6 +27,15 @@ class StringCalculator {
             }
         }
         
+       return try addString(numberString: numberString)
+        
+    }
+    
+    func getCalledCount() -> Int {
+        return calledCount
+    }
+    
+    private func addString(numberString: String) throws -> Int {
         let result = getDelimiter(inputString: numberString)
         let characterSet = result.0 + "\n"
         let numberArray = result.1.components(separatedBy: CharacterSet(charactersIn: characterSet))
@@ -46,7 +58,6 @@ class StringCalculator {
         } else {
             throw StringCalculationError.NegativeNumbersNotAllowed(negativeArray)
         }
-        
     }
     
     private func getDelimiter(inputString: String) -> (String,String) {
