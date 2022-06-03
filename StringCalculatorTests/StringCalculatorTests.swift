@@ -176,4 +176,14 @@ class StringCalculatorTests: XCTestCase {
             XCTFail("StringCalculator.add() should not throw an exception")
         }
     }
+    
+    func testShouldReturnValidSumForAnylengthDelimiter() {
+        do {
+            let sum = try  stringCalculator.add(numberString:"//[***]\n1***2***3")
+            XCTAssertEqual(6, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
+    }
+
 }
