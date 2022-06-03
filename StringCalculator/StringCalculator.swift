@@ -42,12 +42,14 @@ class StringCalculator {
         var sum = 0
         var negativeArray: [Int] = []
         for element in numberArray {
-            if let value = Int(element) {
+            if var value = Int(element) {
                 if(value < 0) {
                     negativeArray.append(value)
                     continue
+                } else if(value > 1000) {
+                    value = 0
                 }
-                sum +=  value
+                sum += value
             } else {
                 print("invalid input!")
                 return 0
