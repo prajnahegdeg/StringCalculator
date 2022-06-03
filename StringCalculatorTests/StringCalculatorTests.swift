@@ -142,4 +142,29 @@ class StringCalculatorTests: XCTestCase {
             XCTFail("StringCalculator.add() should throw StringCalculationError")
         }
     }
+    
+    func testNumberOfTimesAddCalled() {
+        let numberOfTimes = 3
+        do {
+            let _ = try  stringCalculator.add(numberString:"")
+        } catch let error as StringCalculationError {
+            print("\(error.description)")
+        } catch {
+        }
+        do {
+            let _ = try  stringCalculator.add(numberString:"1,2")
+        } catch let error as StringCalculationError {
+            print("\(error.description)")
+        } catch {
+        }
+        do {
+            let _ = try  stringCalculator.add(numberString:"1,-2")
+        } catch let error as StringCalculationError {
+            print("\(error.description)")
+        } catch {
+        }
+        let actualNumber = stringCalculator.getCalledCount()
+        XCTAssertEqual(numberOfTimes, actualNumber)
+
+    }
 }
