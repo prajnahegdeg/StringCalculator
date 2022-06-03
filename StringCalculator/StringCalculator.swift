@@ -28,13 +28,15 @@ class StringCalculator {
             }
         }
         
-       return try addString(numberString: numberString)
+        return try addString(numberString: numberString)
         
     }
     
     func getCalledCount() -> Int {
         return calledCount
     }
+    
+    //MARK: private methods
     
     private func addString(numberString: String) throws -> Int {
         
@@ -96,7 +98,7 @@ class StringCalculator {
             numberArray = numberString.components(separatedBy: delimiters.first!)
         }
         else  if originalString.hasPrefix("//[") && originalString.numberOfOccurrencesOf(string: "[") > 1 && originalString.numberOfOccurrencesOf(string: "]") > 1 {
-                numberArray = numberString.components(separatedBy: delimiters)
+            numberArray = numberString.components(separatedBy: delimiters)
         }
         else {
             numberArray = numberString.components(separatedBy: CharacterSet(charactersIn: delimiters.first!))
