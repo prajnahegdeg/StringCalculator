@@ -167,4 +167,13 @@ class StringCalculatorTests: XCTestCase {
         XCTAssertEqual(numberOfTimes, actualNumber)
 
     }
+    
+    func testShouldIgnoreNumbersLargerThanThousand() {
+        do {
+            let sum = try  stringCalculator.add(numberString:"1,3,1000,4")
+            XCTAssertEqual(8, sum)
+        } catch {
+            XCTFail("StringCalculator.add() should not throw an exception")
+        }
+    }
 }
